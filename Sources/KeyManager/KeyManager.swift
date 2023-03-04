@@ -111,9 +111,7 @@ public struct KeyManager {
 
 		let query: [String: Any] = [
 			kSecClass as String: kSecClassGenericPassword,
-			kSecMatchLimit as String: kSecMatchLimitOne,
-			kSecAttrAccount as String: keyData,
-			kSecReturnData as String: true
+			kSecAttrAccount as String: keyData
 		]
 
 		let status = SecItemDelete(query as CFDictionary)
