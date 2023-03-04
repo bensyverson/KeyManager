@@ -12,6 +12,7 @@ public struct KeyManager {
 		case couldNotAdd(key: String, status: OSStatus)
 		case duplicate(key: String)
 		case notFound(key: String)
+		case couldNotDelete(key: String, status: OSStatus)
 		case unexpectedDataType(item: CFTypeRef?)
 
 		public var errorDescription: String? {
@@ -28,6 +29,8 @@ public struct KeyManager {
 				} else {
 					return "Nil data returned from key search"
 				}
+			case .couldNotDelete(key: let key, status: let status):
+				return "Could not delete key \(key) (OSStatus \(status))"
 			}
 		}
 	}
@@ -101,5 +104,21 @@ public struct KeyManager {
 			throw KeyError.unexpectedDataType(item: item)
 		}
 		return string
+	}
+
+	public static func remove(key: String) throws {
+		let keyData = Data(key.utf8)
+
+		let query: [String: Any] = [
+			kSecClass as String: kSecClassGenericPassword,
+			kSecMatchLimit as String: kSecMatchLimitOne,
+			kSecAttrAccount as String: keyData,
+			kSecReturnData as String: true
+		]
+
+		let status = SecItemDelete(query as CFDictionary)
+		guard status == errSecSuccess else {
+			throw KeyError.couldNotDelete(key: key, status: status)
+		}
 	}
 }
