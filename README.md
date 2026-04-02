@@ -70,7 +70,8 @@ All methods throw `KeyManager.KeyError`:
 | `.couldNotUpdate(key:status:)` | Failed to update existing item |
 | `.duplicate(key:)` | Key already exists (when `shouldUpdate` is `false`) |
 | `.notFound(key:)` | Key does not exist in the keychain |
-| `.couldNotDelete(key:status:)` | Failed to delete item |
+| `.couldNotRead(key:status:)` | Keychain access failed while reading (e.g. auth denied) |
+| `.couldNotDelete(key:status:)` | Keychain access failed while deleting |
 | `.unexpectedDataType` | Keychain returned data in an unexpected format |
 
 ## Platform Support

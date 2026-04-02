@@ -13,14 +13,18 @@ let package = Package(
     products: [
         .library(
             name: "KeyManager",
-            targets: ["KeyManager"]),
+            targets: ["KeyManager"]
+        ),
     ],
     targets: [
         .target(
             name: "KeyManager",
-            dependencies: []),
+            dependencies: []
+        ),
         .testTarget(
             name: "KeyManagerTests",
-            dependencies: ["KeyManager"]),
-    ]
+            dependencies: ["KeyManager"]
+        ),
+    ],
+    swiftLanguageModes: [.v6]
 )
